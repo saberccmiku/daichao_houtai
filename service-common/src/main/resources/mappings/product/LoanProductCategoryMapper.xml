@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.product.dao.LoanProductCategoryDao">
+	
+	<select id="listForPage" resultType="LoanProductCategory" flushCache="true">
+		SELECT
+			`id`, 
+			`name`, 
+			`icon`, 
+			`sort`, 
+			`app_id`, 
+			`status`, 
+			`remark`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		FROM
+			loan_product_category
+		<where>
+			<if test="appId != null and appId.trim() != ''">
+				AND app_id = #{appId}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(create_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY
+			id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO loan_product_category (
+			`name`, 
+			`icon`, 
+			`sort`, 
+			`app_id`, 
+			`status`, 
+			`remark`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{name}, 
+			#{icon}, 
+			#{sort}, 
+			#{appId}, 
+			#{status}, 
+			#{remark}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="LoanProductCategory">
+		SELECT
+			`id`, 
+			`name`, 
+			`icon`, 
+			`sort`, 
+			`app_id`, 
+			`status`, 
+			`remark`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		FROM
+			loan_product_category
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE loan_product_category
+	 	<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="icon != null">`icon` = #{icon}, </if>
+			<if test="sort != null">`sort` = #{sort}, </if>
+			<if test="appId != null">`app_id` = #{appId}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			loan_product_category
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

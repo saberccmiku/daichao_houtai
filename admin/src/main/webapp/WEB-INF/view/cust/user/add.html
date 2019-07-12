@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('新增-客户信息')"></head>
+<body>
+	<div id="dpLTE" class="container-fluid" v-cloak>
+		<table class="form" id="form">
+			<tr>
+	            <td class="formTitle formRequired">用户昵称</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户昵称" v-model="custUser.name" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">真实姓名</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="真实姓名" v-model="custUser.realName" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户证件号码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户证件号码" v-model="custUser.idNo" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">手机号码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="手机号码" v-model="custUser.mobile" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">银行预留手机号</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="银行预留手机号" v-model="custUser.bankMobile" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">银行代码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="银行代码" v-model="custUser.bankCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">银行卡号</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="银行卡号" v-model="custUser.cardNo" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户邮箱</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户邮箱" v-model="custUser.email" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户头像</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户头像" v-model="custUser.avatar" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户性别</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户性别" v-model="custUser.sex" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">生日</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="生日" v-model="custUser.birthday" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户密码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户密码" v-model="custUser.password" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">支付宝账号</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="支付宝账号" v-model="custUser.alipayId" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">微信互联openid</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="微信互联openid" v-model="custUser.weixinOpenid" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">登录次数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="登录次数" v-model="custUser.loginNum" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户注册时间</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户注册时间" v-model="custUser.registerTime" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">当前登录时间</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="当前登录时间" v-model="custUser.loginTime" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">上次登录时间</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="上次登录时间" v-model="custUser.lastLoginTime" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">当前登录ip</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="当前登录ip" v-model="custUser.loginIp" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">上次登录ip</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="上次登录ip" v-model="custUser.lastLoginIp" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户类型</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户类型" v-model="custUser.type" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户等级</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户等级" v-model="custUser.level" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户积分</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户积分" v-model="custUser.points" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">第三方支付绑定id</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="第三方支付绑定id" v-model="custUser.bindId" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	           <td class="formTitle">认证状态</td>
+	            <td class="formValue">
+					
+					<label class="radio-inline">
+						<input type="radio" name="identityStatus" value="1" v-model="custUser.identityStatus"/>已完成
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="identityStatus" value="0" v-model="custUser.identityStatus"/> 未完成
+					</label>
+					
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">授信额度</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="授信额度" v-model="custUser.creditLine" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">可用授信额度</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="可用授信额度" v-model="custUser.availCreditLine" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">已用授信额度</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="已用授信额度" v-model="custUser.usedCreditLine" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户经验值</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户经验值" v-model="custUser.exppoints" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">来源</td>
+	            <td class="formValue">
+					
+					<label class="radio-inline">
+						<input type="radio" name="source" value="1" v-model="custUser.source"/>ios
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="source" value="2" v-model="custUser.source"/> android
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="source" value="3" v-model="custUser.source"/> H5
+					</label>
+					
+	            </td>
+        	</tr>
+			<tr>
+	             <td class="formTitle">终端类型</td>
+	            <td class="formValue">
+					
+					<label class="radio-inline">
+						<input type="radio" name="terminal" value="1" v-model="custUser.terminal"/>微信
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="terminal" value="2" v-model="custUser.terminal"/> qq
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="terminal" value="3" v-model="custUser.terminal"/> 浏览器
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="terminal" value="4" v-model="custUser.terminal"/> app
+					</label>
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">渠道</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="渠道" v-model="custUser.channel" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">来自哪个app</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="来自哪个app" v-model="custUser.appId" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">邀请码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="邀请码" v-model="custUser.inviteCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户状态</td>
+	            <td class="formValue">
+					
+					<label class="radio-inline">
+						<input type="radio" name="status" value="1" v-model="custUser.status"/>正常
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="status" value="0" v-model="custUser.status"/> 锁定账户
+					</label>
+					
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">备注信息</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="备注信息" v-model="custUser.remark" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>	
+			
+		</table>
+	</div>
+    <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/js/cust/user/add.js}"></script>
+</body>
+</html>

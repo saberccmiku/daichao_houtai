@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.cust.dao.CustApplyRecordDao">
+	
+	<select id="listForPage" resultType="CustApplyRecord" flushCache="true">
+		SELECT
+			`id`, 
+			`user_id`, 
+			`channel`, 
+			`product_id`, 
+			`product_name`, 
+			`product_logo`, 
+			`money`, 
+			`term`, 
+			`loan_unit`, 
+			`rate`, 
+			`pv`, 
+			`app_id`, 
+			`apply_date`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		FROM
+			cust_apply_record
+		<where>
+			<if test="channel != null and channel.trim() != ''">
+				AND channel = #{channel}
+			</if>
+			<if test="appId != null and appId.trim() != ''">
+				AND app_id = #{appId}
+			</if>
+			<if test="userId != null and userId.trim() != ''">
+				AND user_id = #{userId}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(create_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY create_time DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO cust_apply_record (
+			`user_id`, 
+			`channel`, 
+			`product_id`, 
+			`product_name`, 
+			`product_logo`, 
+			`money`, 
+			`term`, 
+			`loan_unit`, 
+			`rate`, 
+			`pv`, 
+			`app_id`, 
+			`apply_date`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{userId}, 
+			#{channel}, 
+			#{productId}, 
+			#{productName}, 
+			#{productLogo}, 
+			#{money}, 
+			#{term}, 
+			#{loanUnit}, 
+			#{rate}, 
+			#{pv}, 
+			#{appId}, 
+			#{applyDate}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="CustApplyRecord">
+		SELECT
+			`id`, 
+			`user_id`, 
+			`channel`, 
+			`product_id`, 
+			`product_name`, 
+			`product_logo`, 
+			`money`, 
+			`term`, 
+			`loan_unit`, 
+			`rate`, 
+			`pv`, 
+			`app_id`, 
+			`apply_date`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		FROM
+			cust_apply_record
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE cust_apply_record
+	 	<set>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="channel != null">`channel` = #{channel}, </if>
+			<if test="productId != null">`product_id` = #{productId}, </if>
+			<if test="productName != null">`product_name` = #{productName}, </if>
+			<if test="productLogo != null">`product_logo` = #{productLogo}, </if>
+			<if test="money != null">`money` = #{money}, </if>
+			<if test="term != null">`term` = #{term}, </if>
+			<if test="loanUnit != null">`loan_unit` = #{loanUnit}, </if>
+			<if test="rate != null">`rate` = #{rate}, </if>
+			<if test="pv != null">`pv` = #{pv}, </if>
+			<if test="appId != null">`app_id` = #{appId}, </if>
+			<if test="applyDate != null">`apply_date` = #{applyDate}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			cust_apply_record
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

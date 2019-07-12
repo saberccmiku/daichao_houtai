@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.modules.statistics.dao.ChannelStatDao">
+	
+	<select id="getChannelStatList" resultType="ChannelStatEntity" flushCache="true">
+		SELECT DATE_FORMAT(register_time, '%Y-%m-%d') registerTime,tab1.channel channelId, channel_name, tab2.linkPv, regSum,loginSum, 
+		activeTime, uvSum FROM (
+     
+	    (SELECT  u.channel, register_time,c.`channel_name`,  COUNT(CASE WHEN `login_num` IS NOT NULL  THEN 1 else NULL end) as loginSum,
+	        COUNT(DISTINCT(u.`id`)) regSum FROM `cust_user` u LEFT JOIN `loan_channel` c on u.`channel` = c.`id` 
+	        <where>
+	        c.id is not null
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(register_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+	        </where>
+	        GROUP BY u.`channel`) tab1
+    
+   		 LEFT JOIN 
+   	    (SELECT channel_id,sum(channel_pv) linkPv  FROM statistics_channel 
+	        <where>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(stat_date, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+	        </where>
+	        GROUP BY `channel_id`
+	        )  tab2 
+    
+    	 on tab1.channel = tab2.channel_id
+	      
+	    
+	    LEFT JOIN 
+	        (SELECT  
+			    u.`channel` , sum(CASE WHEN TIMESTAMPDIFF(SECOND ,u.login_time,  d.end_time) >=0  THEN TIMESTAMPDIFF(SECOND ,u.login_time,  d.end_time) else 0 end)  activeTime, 
+			    SUM(UV) uvSum
+			 FROM 
+			    ( SELECT   r.user_id,  u.channel, max(r.update_time) end_time,  COUNT(DISTINCT(r.product_id)) as UV 
+			     FROM  `cust_apply_record` r LEFT JOIN  `cust_user`  u  on  r.user_id =u.`id` 
+			      <where>
+			        r.channel IS NOT NULL
+					<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+						AND DATE_FORMAT(register_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+					</if>
+			      </where>
+			     
+			     GROUP BY r.`user_id` )  d   
+			LEFT JOIN   `cust_user` u on d.user_id = u.`id` 
+			GROUP BY u.channel
+	        ) tab3 on tab1.channel = tab3.channel
+		)
+
+		<where>
+			<if test="channelName != null and channelName != ''">
+				AND channel_name LIKE concat('%',#{channelName},'%') 
+			</if>
+		</where>
+		order by linkPv desc
+	</select>
+	
+	
+	<select id="getUserStatList" resultType="UserStatEntity" flushCache="true">
+		
+		SELECT u.id userId,mobile, real_name,register_time ,login_time ,last_login_time ,
+		reg_ip ,login_ip , login_num , 
+		CASE WHEN TIMESTAMPDIFF(SECOND ,u.login_time,  d.end_time) >=0  THEN TIMESTAMPDIFF(SECOND ,u.login_time,  d.end_time) else 0 end activeTime, 
+		d.pv,d.uv,
+		c.`channel_name` ,source,u.`login_source` ,u.`terminal` 
+		FROM `cust_user` u 
+		LEFT JOIN `loan_channel` c on u.channel = c.`id` 
+		LEFT JOIN (SELECT r.user_id, max(r.update_time) end_time , COUNT(*) as 'pv',  COUNT(DISTINCT(r.product_id)) as uv
+           from `cust_apply_record`  r  GROUP BY r.`user_id` ORDER BY r.update_time) as d 
+			on u.`id`  = d.user_id
+
+		<where>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(register_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+			<if test="channelName != null and channelName != ''">
+				AND channel_name LIKE concat('%',#{channelName},'%') 
+			</if>
+		</where>
+		order by register_time desc
+	</select>
+	
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.basic.dao.BasicCommentDao">
+	
+	<select id="listForPage" resultType="BasicComment" flushCache="true">
+		SELECT
+			`id`, 
+			`user_id`, 
+			`title`, 
+			`detail`, 
+			`appId`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		FROM
+			basic_comment
+		ORDER BY
+			id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO basic_comment (
+			`user_id`, 
+			`title`, 
+			`detail`, 
+			`appId`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{userId}, 
+			#{title}, 
+			#{detail}, 
+			#{appid}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="BasicComment">
+		SELECT
+			`id`, 
+			`user_id`, 
+			`title`, 
+			`detail`, 
+			`appId`, 
+			`create_time`, 
+			`update_time`, 
+			`del`
+		FROM
+			basic_comment
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE basic_comment
+	 	<set>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="detail != null">`detail` = #{detail}, </if>
+			<if test="appid != null">`appId` = #{appid}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			basic_comment
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

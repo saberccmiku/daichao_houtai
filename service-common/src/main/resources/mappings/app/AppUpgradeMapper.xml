@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.app.dao.AppUpgradeDao">
+	
+	<select id="listForPage" resultType="AppUpgrade" flushCache="true">
+		SELECT
+			`id`, 
+			`name`, 
+			`type`, 
+			`version`, 
+			`forced`, 
+			`file_id`, 
+			`pkg_url`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			app_upgrade
+		ORDER BY
+			id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO app_upgrade (
+			`id`, 
+			`name`, 
+			`type`, 
+			`version`, 
+			`forced`, 
+			`file_id`, 
+			`pkg_url`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{id}, 
+			#{name}, 
+			#{type}, 
+			#{version}, 
+			#{forced}, 
+			#{fileId}, 
+			#{pkgUrl}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="AppUpgrade">
+		SELECT
+			`id`, 
+			`name`, 
+			`type`, 
+			`version`, 
+			`forced`, 
+			`file_id`, 
+			`pkg_url`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			app_upgrade
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE app_upgrade
+	 	<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="version != null">`version` = #{version}, </if>
+			<if test="forced != null">`forced` = #{forced}, </if>
+			<if test="fileId != null">`file_id` = #{fileId}, </if>
+			<if test="pkgUrl != null">`pkg_url` = #{pkgUrl}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<select id="getNewVersion" parameterType="string" resultType="AppUpgrade">
+	  SELECT * FROM app_upgrade 
+	   WHERE del = 0
+	     AND type = #{type}
+	     AND file_id = #{fileId}
+	     AND status = '1'
+	</select>
+	
+	<select id="isNewVersion" parameterType="com.daichao.loans.app.option.UpgradeOP" resultType="int">
+	  SELECT COUNT(1)
+	    FROM app_upgrade 
+	   WHERE del = 0
+	     AND type = #{type}
+	     AND version = #{appVerson}
+	     AND file_id = #{appId}
+	     AND status = '1'
+	</select>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

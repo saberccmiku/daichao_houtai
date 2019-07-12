@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('新增-渠道公司')"></head>
+<body>
+	<div id="dpLTE" class="container-fluid" v-cloak>
+		<table class="form" id="form">
+<!-- 			<tr>
+	            <td class="formTitle formRequired">渠道公司编码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="渠道公司编码" v-model="loanChannelCompany.companyCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle">公司名称</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="渠道公司名称" v-model="loanChannelCompany.companyName" isvalid="yes">
+	            </td>
+        	</tr>
+			<!-- <tr>
+	            <td class="formTitle formRequired">公司类型</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="公司类型" v-model="loanChannelCompany.type" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+        	
+        	
+			<tr>
+	            <td class="formTitle formRequired">单价</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="单价" v-model="loanChannelCompany.price" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">联系人姓名</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="联系人姓名" v-model="loanChannelCompany.contactName" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">联系人手机号</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="联系人手机号" v-model="loanChannelCompany.contactPhone" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">联系地址</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="联系地址" v-model="loanChannelCompany.address" isvalid="yes">
+	            </td>
+        	</tr>
+        	
+        	<tr>
+	            <td class="formTitle formRequired">状态</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="status" value="1" v-model="loanChannelCompany.status"/>可用
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="status" value="0" v-model="loanChannelCompany.status"/>不可用
+					</label>
+	            </td>
+        	</tr>
+        	
+        	
+			<tr>
+	            <td class="formTitle">备注信息</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="备注信息" v-model="loanChannelCompany.remark" >
+	            </td>
+        	</tr>
+			
+		</table>
+	</div>
+    <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/js/loan/channelCompany/add.js}"></script>
+</body>
+</html>

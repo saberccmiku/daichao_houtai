@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.cust.dao.CustUserDao">
+	
+	<select id="listForPage" resultType="CustUser" flushCache="true">
+		SELECT
+			u.*, c.channel_name channelName
+		FROM
+			`cust_user` u LEFT JOIN `loan_channel` c on u.`channel` = c.`id` 
+			
+		<where>
+			<if test=" mobile != null and mobile.trim() != ''">
+				AND mobile = #{mobile}
+			</if>
+			<if test=" channel != null and channel.trim() != ''">
+				AND channel = #{channel}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(register_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY u.`register_time` DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO cust_user (
+			`name`, 
+			`real_name`, 
+			`id_no`, 
+			`mobile`, 
+			`bank_mobile`, 
+			`bank_code`, 
+			`card_no`, 
+			`email`, 
+			`avatar`, 
+			`sex`, 
+			`birthday`, 
+			`password`, 
+			`alipay_id`, 
+			`weixin_openid`, 
+			`login_num`, 
+			`register_time`, 
+			`login_time`, 
+			`last_login_time`, 
+			`reg_ip`, 
+			`login_ip`, 
+			`last_login_ip`, 
+			`type`, 
+			`level`, 
+			`points`, 
+			`bind_id`, 
+			`identity_status`, 
+			`credit_line`, 
+			`avail_credit_line`, 
+			`used_credit_line`, 
+			`exppoints`, 
+			`source`, 
+			`login_source`, 
+			`terminal`, 
+			`channel`, 
+			`app_id`, 
+			`invite_code`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{name}, 
+			#{realName}, 
+			#{idNo}, 
+			#{mobile}, 
+			#{bankMobile}, 
+			#{bankCode}, 
+			#{cardNo}, 
+			#{email}, 
+			#{avatar}, 
+			#{sex}, 
+			#{birthday}, 
+			#{password}, 
+			#{alipayId}, 
+			#{weixinOpenid}, 
+			#{loginNum}, 
+			#{registerTime}, 
+			#{loginTime}, 
+			#{lastLoginTime}, 
+			#{regIp}, 
+			#{loginIp}, 
+			#{lastLoginIp}, 
+			#{type}, 
+			#{level}, 
+			#{points}, 
+			#{bindId}, 
+			#{identityStatus}, 
+			#{creditLine}, 
+			#{availCreditLine}, 
+			#{usedCreditLine}, 
+			#{exppoints}, 
+			#{source}, 
+			#{loginSource}, 
+			#{terminal}, 
+			#{channel}, 
+			#{appId}, 
+			#{inviteCode}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="CustUser">
+		SELECT
+			`id`, 
+			`name`, 
+			`real_name`, 
+			`id_no`, 
+			`mobile`, 
+			`bank_mobile`, 
+			`bank_code`, 
+			`card_no`, 
+			`email`, 
+			`avatar`, 
+			`sex`, 
+			`birthday`, 
+			`password`, 
+			`alipay_id`, 
+			`weixin_openid`, 
+			`login_num`, 
+			`register_time`, 
+			`login_time`, 
+			`last_login_time`, 
+			`reg_ip`, 
+			`login_ip`, 
+			`last_login_ip`, 
+			`type`, 
+			`level`, 
+			`points`, 
+			`bind_id`, 
+			`identity_status`, 
+			`credit_line`, 
+			`avail_credit_line`, 
+			`used_credit_line`, 
+			`exppoints`, 
+			`source`, 
+			`login_source`, 
+			`terminal`, 
+			`channel`, 
+			`app_id`, 
+			`invite_code`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			cust_user
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE cust_user
+	 	<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="realName != null">`real_name` = #{realName}, </if>
+			<if test="idNo != null">`id_no` = #{idNo}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="bankMobile != null">`bank_mobile` = #{bankMobile}, </if>
+			<if test="bankCode != null">`bank_code` = #{bankCode}, </if>
+			<if test="cardNo != null">`card_no` = #{cardNo}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="avatar != null">`avatar` = #{avatar}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="birthday != null">`birthday` = #{birthday}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="alipayId != null">`alipay_id` = #{alipayId}, </if>
+			<if test="weixinOpenid != null">`weixin_openid` = #{weixinOpenid}, </if>
+			<if test="loginNum != null">`login_num` = #{loginNum}, </if>
+			<if test="registerTime != null">`register_time` = #{registerTime}, </if>
+			<if test="loginTime != null">`login_time` = #{loginTime}, </if>
+			<if test="lastLoginTime != null">`last_login_time` = #{lastLoginTime}, </if>
+			<if test="regIp != null">`reg_ip` = #{regIp}, </if>
+			<if test="loginIp != null">`login_ip` = #{loginIp}, </if>
+			<if test="lastLoginIp != null">`last_login_ip` = #{lastLoginIp}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="points != null">`points` = #{points}, </if>
+			<if test="bindId != null">`bind_id` = #{bindId}, </if>
+			<if test="identityStatus != null">`identity_status` = #{identityStatus}, </if>
+			<if test="creditLine != null">`credit_line` = #{creditLine}, </if>
+			<if test="availCreditLine != null">`avail_credit_line` = #{availCreditLine}, </if>
+			<if test="usedCreditLine != null">`used_credit_line` = #{usedCreditLine}, </if>
+			<if test="exppoints != null">`exppoints` = #{exppoints}, </if>
+			<if test="source != null">`source` = #{source}, </if>
+			<if test="loginSource != null">`login_source` = #{loginSource}, </if>
+			<if test="terminal != null">`terminal` = #{terminal}, </if>
+			<if test="channel != null">`channel` = #{channel}, </if>
+			<if test="appId != null">`app_id` = #{appId}, </if>
+			<if test="inviteCode != null">`invite_code` = #{inviteCode}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			cust_user
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<update id="updatePwd" parameterType="com.daichao.loans.cust.option.UpdatePwdOP">
+	    UPDATE cust_user
+	    SET password = #{password},
+	    update_by = 'system',
+	    update_time = #{updateTime}
+	    WHERE del = 0
+	    AND mobile = #{account}
+	    <if test="oldPwd!=null">
+	      AND password = #{oldPwd}
+	    </if>
+	  </update>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

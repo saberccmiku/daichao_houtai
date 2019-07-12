@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.product.dao.LoanProductDao">
+	
+	<select id="listForPage" resultType="LoanProduct" flushCache="true">
+		SELECT
+			`id`, 
+			`product_code`, 
+			`product_name`, 
+			`type`, 
+			`company_id`, 
+			`logo`, 
+			`advantage`, 
+			`lend_speed`, 
+			`min_amt`, 
+			`max_amt`, 
+			`min_term`, 
+			`max_term`, 
+			`day_rate`, 
+			`loan_unit`, 
+			`fastest_audit_circle`, 
+			`pass_rate`, 
+			`link`, 
+			`link_type`, 
+			`introduction`, 
+			`apply_condition`, 
+			`require_document`, 
+			`audit_process`, 
+			`category_id`, 
+			`label`, 
+			`bannaer_tag`, 
+			`scort`, 
+			`apply_num`, 
+			`app_id`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			loan_product
+		<where>
+			<if test="productName != null and productName.trim() != ''">
+				AND product_name = #{productName}
+			</if>
+			<if test="categoryId != null">
+				AND category_id = #{categoryId}
+			</if>
+			<if test="label != null">
+				AND label = #{label}
+			</if>
+			<if test="appId != null">
+				AND app_id = #{appId}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+			<if test="del != null">
+				AND del = #{del}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(create_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY
+			id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO loan_product (
+			`product_code`, 
+			`product_name`, 
+			`type`, 
+			`company_id`, 
+			`logo`, 
+			`advantage`, 
+			`lend_speed`, 
+			`min_amt`, 
+			`max_amt`, 
+			`min_term`, 
+			`max_term`, 
+			`day_rate`, 
+			`loan_unit`, 
+			`fastest_audit_circle`, 
+			`pass_rate`, 
+			`link`, 
+			`link_type`, 
+			`introduction`, 
+			`apply_condition`, 
+			`require_document`, 
+			`audit_process`, 
+			`category_id`, 
+			`label`, 
+			`bannaer_tag`, 
+			`scort`, 
+			`apply_num`, 
+			`app_id`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{productCode}, 
+			#{productName}, 
+			#{type}, 
+			#{companyId}, 
+			#{logo}, 
+			#{advantage}, 
+			#{lendSpeed}, 
+			#{minAmt}, 
+			#{maxAmt}, 
+			#{minTerm}, 
+			#{maxTerm}, 
+			#{dayRate}, 
+			#{loanUnit}, 
+			#{fastestAuditCircle}, 
+			#{passRate}, 
+			#{link}, 
+			#{linkType}, 
+			#{introduction}, 
+			#{applyCondition}, 
+			#{requireDocument}, 
+			#{auditProcess}, 
+			#{categoryId}, 
+			#{label}, 
+			#{bannaerTag}, 
+			#{scort}, 
+			#{applyNum}, 
+			#{appId}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="LoanProduct">
+		SELECT
+			`id`, 
+			`product_code`, 
+			`product_name`, 
+			`type`, 
+			`company_id`, 
+			`logo`, 
+			`advantage`, 
+			`lend_speed`, 
+			`min_amt`, 
+			`max_amt`, 
+			`min_term`, 
+			`max_term`, 
+			`day_rate`, 
+			`loan_unit`, 
+			`fastest_audit_circle`, 
+			`pass_rate`, 
+			`link`, 
+			`link_type`, 
+			`introduction`, 
+			`apply_condition`, 
+			`require_document`, 
+			`audit_process`, 
+			`category_id`, 
+			`label`, 
+			`bannaer_tag`, 
+			`scort`, 
+			`apply_num`, 
+			`app_id`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			loan_product
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE loan_product
+	 	<set>
+			<if test="productCode != null">`product_code` = #{productCode}, </if>
+			<if test="productName != null">`product_name` = #{productName}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="companyId != null">`company_id` = #{companyId}, </if>
+			<if test="logo != null">`logo` = #{logo}, </if>
+			<if test="advantage != null">`advantage` = #{advantage}, </if>
+			<if test="lendSpeed != null">`lend_speed` = #{lendSpeed}, </if>
+			<if test="minAmt != null">`min_amt` = #{minAmt}, </if>
+			<if test="maxAmt != null">`max_amt` = #{maxAmt}, </if>
+			<if test="minTerm != null">`min_term` = #{minTerm}, </if>
+			<if test="maxTerm != null">`max_term` = #{maxTerm}, </if>
+			<if test="dayRate != null">`day_rate` = #{dayRate}, </if>
+			<if test="loanUnit != null">`loan_unit` = #{loanUnit}, </if>
+			<if test="fastestAuditCircle != null">`fastest_audit_circle` = #{fastestAuditCircle}, </if>
+			<if test="passRate != null">`pass_rate` = #{passRate}, </if>
+			<if test="link != null">`link` = #{link}, </if>
+			<if test="linkType != null">`link_type` = #{linkType}, </if>
+			<if test="introduction != null">`introduction` = #{introduction}, </if>
+			<if test="applyCondition != null">`apply_condition` = #{applyCondition}, </if>
+			<if test="requireDocument != null">`require_document` = #{requireDocument}, </if>
+			<if test="auditProcess != null">`audit_process` = #{auditProcess}, </if>
+			<if test="categoryId != null">`category_id` = #{categoryId}, </if>
+			<if test="label != null">`label` = #{label}, </if>
+			<if test="bannaerTag != null">`bannaer_tag` = #{bannaerTag}, </if>
+			<if test="scort != null">`scort` = #{scort}, </if>
+			<if test="applyNum != null">`apply_num` = #{applyNum}, </if>
+			<if test="appId != null">`app_id` = #{appId}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			loan_product
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<select id="getCategoryListByAppId" resultType="com.daichao.loans.product.vo.ProductCategoryVO">
+		SELECT * FROM loan_product_category a
+		WHERE a.status = 1 and a.app_id = #{appId}
+		order by sort
+	</select>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

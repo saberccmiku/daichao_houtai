@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.channel.dao.LoanChannelCompanyDao">
+	
+	<select id="listForPage" resultType="LoanChannelCompany" flushCache="true">
+		SELECT
+			`id`, 
+			`company_code`, 
+			`company_name`, 
+			`type`, 
+			`price`, 
+			`contact_name`, 
+			`contact_phone`, 
+			`address`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			loan_channel_company
+		<where>
+			<if test="companyName != null and companyName.trim() != ''">
+				AND company_name = #{companyName}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+			<if test="del != null">
+				AND del = #{del}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(create_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY id DESC
+	</select>
+	
+	<select id="list" resultType="LoanChannelCompany" flushCache="true">
+		SELECT
+			`id`, `company_name`
+		FROM
+			loan_channel_company
+		<where>
+			<if test="companyName != null and companyName.trim() != ''">
+				AND company_name = #{companyName}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+			<if test="del != null">
+				AND del = #{del}
+			</if>
+		</where>
+		ORDER BY id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO loan_channel_company (
+			`company_code`, 
+			`company_name`, 
+			`type`, 
+			`price`, 
+			`contact_name`, 
+			`contact_phone`, 
+			`address`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{companyCode}, 
+			#{companyName}, 
+			#{type}, 
+			#{price}, 
+			#{contactName}, 
+			#{contactPhone}, 
+			#{address}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="LoanChannelCompany">
+		SELECT
+			`id`, 
+			`company_code`, 
+			`company_name`, 
+			`type`, 
+			`price`, 
+			`contact_name`, 
+			`contact_phone`, 
+			`address`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			loan_channel_company
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE loan_channel_company
+	 	<set>
+			<if test="companyCode != null">`company_code` = #{companyCode}, </if>
+			<if test="companyName != null">`company_name` = #{companyName}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="contactName != null">`contact_name` = #{contactName}, </if>
+			<if test="contactPhone != null">`contact_phone` = #{contactPhone}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			loan_channel_company
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

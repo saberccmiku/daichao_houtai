@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('编辑-产品统计')"></head>
+</head>
+<body>
+	<div id="dpLTE" class="container-fluid" v-cloak>
+		<table class="form" id="form">
+			<tr>
+	            <td class="formTitle formRequired">统计日期</td>
+	            <td class="formValue">
+	            	<span>{{statisticsProduct.statDate}}</span>
+					<!-- <input type="text" class="form-control" placeholder="统计日期" v-model="statisticsProduct.statDate" isvalid="yes" checkexpession="NotNull"> -->
+	            </td>
+        	</tr>
+			<!-- <tr>
+	            <td class="formTitle formRequired">产品id</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品id" v-model="statisticsProduct.productId" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+		<!-- 	<tr>
+	            <td class="formTitle formRequired">产品编码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品编码" v-model="statisticsProduct.productCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle formRequired">产品名称</td>
+	            <td class="formValue">
+	            	<span>{{statisticsProduct.productName}}</span>
+<!-- 					<input type="text" class="form-control" placeholder="产品名称" v-model="statisticsProduct.productName" isvalid="yes" checkexpession="NotNull">
+ -->	            </td>
+        	</tr>
+		<!-- 	<tr>
+	            <td class="formTitle formRequired">游客点击数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="游客点击数" v-model="statisticsProduct.touristPv" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">游客申请数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="游客申请数" v-model="statisticsProduct.touristUv" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle formRequired">用户点击数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户点击数" v-model="statisticsProduct.userPv" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">用户申请数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="用户申请数" v-model="statisticsProduct.userUv" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">产品注册数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品注册数" v-model="statisticsProduct.regNum" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">备注信息</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="备注信息" v-model="statisticsProduct.remark" isvalid="yes">
+	            </td>
+        	</tr>
+			
+		</table>
+	</div>
+    <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/js/statistics/product/edit.js}"></script>
+</body>
+</html>

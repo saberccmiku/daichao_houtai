@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.statistics.dao.StatisticsChannelDao">
+	
+	<select id="listForPage" resultType="StatisticsChannel" flushCache="true">
+		SELECT
+			`id`, 
+			`channel_id`, 
+			`channel_code`, 
+			`channel_name`, 
+			`company_id`, 
+			`stat_date`, 
+			`channel_pv`, 
+			`real_reg_number`, 
+			`login_num`, 
+			`discount`, 
+			`reg_base`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			statistics_channel
+		<where>
+			<if test="channelName != null and channelName.trim() != ''">
+				AND channel_name = #{channelName}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(create_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY stat_date DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO statistics_channel (
+			`channel_id`, 
+			`channel_code`, 
+			`channel_name`, 
+			`company_id`, 
+			`stat_date`, 
+			`channel_pv`, 
+			`real_reg_number`, 
+			`login_num`, 
+			`discount`, 
+			`reg_base`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{channelId}, 
+			#{channelCode}, 
+			#{channelName}, 
+			#{companyId}, 
+			#{statDate}, 
+			#{channelPv}, 
+			#{realRegNumber}, 
+			#{loginNum}, 
+			#{discount}, 
+			#{regBase}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="StatisticsChannel">
+		SELECT
+			`id`, 
+			`channel_id`, 
+			`channel_code`, 
+			`channel_name`, 
+			`company_id`, 
+			`stat_date`, 
+			`channel_pv`, 
+			`real_reg_number`, 
+			`login_num`, 
+			`discount`, 
+			`reg_base`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			statistics_channel
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE statistics_channel
+	 	<set>
+			<if test="channelId != null">`channel_id` = #{channelId}, </if>
+			<if test="channelCode != null">`channel_code` = #{channelCode}, </if>
+			<if test="channelName != null">`channel_name` = #{channelName}, </if>
+			<if test="companyId != null">`company_id` = #{companyId}, </if>
+			<if test="statDate != null">`stat_date` = #{statDate}, </if>
+			<if test="channelPv != null">`channel_pv` = #{channelPv}, </if>
+			<if test="realRegNumber != null">`real_reg_number` = #{realRegNumber}, </if>
+			<if test="loginNum != null">`login_num` = #{loginNum}, </if>
+			<if test="discount != null">`discount` = #{discount}, </if>
+			<if test="regBase != null">`reg_base` = #{regBase}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			statistics_channel
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

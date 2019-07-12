@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('编辑-渠道统计表')"></head>
+</head>
+<body>
+	<div id="dpLTE" class="container-fluid" v-cloak>
+		<table class="form" id="form">
+			<!-- <tr>
+	            <td class="formTitle formRequired">渠道编码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="渠道编码" v-model="statisticsChannel.channelCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle formRequired">统计日期</td>
+	            <td>
+	            	<span>{{statisticsChannel.statDate}}</span>
+<!-- 					<input type="text" class="form-control" placeholder="统计日期YYYYMMDD" v-model="statisticsChannel.statDate" isvalid="yes" checkexpession="NotNull">
+ -->	            </td>
+        	</tr>
+ 			<tr>
+	            <td class="formTitle formRequired">渠道名称</td>
+	            <td>
+	            	<span>{{statisticsChannel.channelName}}</span>
+<!-- 					<input type="text" class="form-control" placeholder="渠道名称" v-model="statisticsChannel.channelName" isvalid="yes" checkexpession="NotNull">
+ -->	            </td>
+        	</tr>
+        	
+        	<tr>
+	            <td class="formTitle formRequired">点击次数</td>
+	            <td>
+	            	<span>{{statisticsChannel.channelPv}}</span>
+	            </td>
+        	</tr>
+        	<tr>
+	            <td class="formTitle formRequired">真实注册数</td>
+	            <td>
+	            	<span>{{statisticsChannel.realRegNumber}}</span>
+	            </td>
+        	</tr>
+ 			<tr>
+	            <td class="formTitle formRequired">登陆数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="登陆数" v-model="statisticsChannel.loginNum" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">折扣比例</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="折扣比例" v-model="statisticsChannel.discount" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+ 			<tr>
+	            <td class="formTitle formRequired">显示注册数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="注册基数/显示数" v-model="statisticsChannel.regBase" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+        	<tr>
+        	 	<td class="formTitle" style="color:red">&nbsp;&nbsp;*如果修改了注册数,需把折扣比例设为0</td>
+	        </tr>
+<!-- 			<tr>
+	            <td class="formTitle formRequired">状态(0-初始，1-正常)</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="状态(0-初始，1-正常)" v-model="statisticsChannel.status" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle">备注信息</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="备注信息" v-model="statisticsChannel.remark" isvalid="yes" >
+	            </td>
+        	</tr>
+		</table>
+	</div>
+    <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/js/statistics/channel/edit.js}"></script>
+</body>
+</html>

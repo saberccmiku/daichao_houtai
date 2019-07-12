@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('新增-产品信息')">
+
+</head>
+<body>
+	<div id="dpLTE" class="container-fluid" v-cloak>
+		<table class="form" id="form">
+	<!-- 		<tr>
+	            <td class="formTitle formRequired">产品编号</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品编号" v-model="loanProduct.productCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle formRequired">产品名称</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品名称" v-model="loanProduct.productName" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+<!-- 			<tr>
+	            <td class="formTitle formRequired">产品类型（1-现金贷 2-贷超）</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品类型（1-现金贷 2-贷超）" v-model="loanProduct.type" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+        	 -->
+        	<tr>
+	            <td class="formTitle">产品类型</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="type" value="1" v-model="loanProduct.type"/> 现金贷
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="type" value="2" v-model="loanProduct.type"/> 贷超
+					</label>
+	            </td>
+        	</tr>
+        	
+	<!-- 	<tr>
+	            <td class="formTitle formRequired">所属公司</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="公司ID" v-model="loanProduct.companyId" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+        	
+        	<tr>
+				<td class="formTitle">所属公司</td>
+				<td class="formValue">
+					<select class="form-control pcSelect" v-model="loanProduct.companyId" isvalid="yes"></select>
+				</td>
+			</tr>
+        	
+        	
+			<tr>
+	            <td class="formTitle formRequired">产品LOGO</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品图片"  v-model="loanProduct.logo" isvalid="yes" checkexpession="NotNull">
+					
+					<input type="file" name="file" id="cover" style="display: none;" @change="uploadCover">
+					<input type="button" class="btn btn-default btn-sm" value="上传图片" @click="selectCover">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">产品优势</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品优势" v-model="loanProduct.advantage" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">放款速度</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="放款速度(小时)" v-model="loanProduct.lendSpeed" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">放款最小额</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="放款最小额" v-model="loanProduct.minAmt" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">放款最大额</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="放款最大额" v-model="loanProduct.maxAmt" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">最短周期(天)</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="最短周期(天)" v-model="loanProduct.minTerm" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">最大周期(天)</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="最大周期(天)" v-model="loanProduct.maxTerm" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">日利率</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="日利率" v-model="loanProduct.dayRate" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+        	
+        	<tr>
+	            <td class="formTitle">借款单位</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="loanUnit" value="D" v-model="loanProduct.loanUnit"/> 日
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="loanUnit" value="M" v-model="loanProduct.loanUnit"/> 月
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="loanUnit" value="Y" v-model="loanProduct.loanUnit"/> 年
+					</label>
+	            </td>
+        	</tr>
+        	
+			<tr>
+	            <td class="formTitle formRequired">最快审核周期(小时)</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="最快审核周期(小时)" v-model="loanProduct.fastestAuditCircle" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">通过率</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="通过率" v-model="loanProduct.passRate" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">跳转链接</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="跳转链接" v-model="loanProduct.link" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+        	
+        	<tr>
+	            <td class="formTitle">对接方式</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="linkType" value="1" v-model="loanProduct.linkType"/> H5
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="linkType" value="2" v-model="loanProduct.linkType"/> API联登撞库
+					</label>
+	            </td>
+        	</tr>
+        	
+        	
+        	<tr>
+	            <td class="formTitle formTitle-top">产品介绍</td>
+	            <td class="formValue">
+					<textarea class="form-control" rows="4" placeholder="产品介绍" v-model="loanProduct.introduction"></textarea>
+	            </td>
+        	</tr>
+        	<tr>
+	            <td class="formTitle formTitle-top">申请条件</td>
+	            <td class="formValue">
+					<textarea class="form-control" rows="4" placeholder="申请条件" v-model="loanProduct.applyCondition"></textarea>
+	            </td>
+        	</tr>
+        	<tr>
+	            <td class="formTitle formTitle-top">所需资料</td>
+	            <td class="formValue">
+					<textarea class="form-control" rows="4" placeholder="所需资料" v-model="loanProduct.requireDocument"></textarea>
+	            </td>
+        	</tr>
+        	<tr>
+	            <td class="formTitle formTitle-top">审核流程</td>
+	            <td class="formValue">
+					<textarea class="form-control" rows="4" placeholder="审核流程" v-model="loanProduct.auditProcess"></textarea>
+	            </td>
+        	</tr>
+        	
+        	
+        	<tr>
+	            <td class="formTitle">产品分类</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="categoryId" value="1" v-model="loanProduct.categoryId"/> 精选推荐
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="categoryId" value="2" v-model="loanProduct.categoryId"/> 新品专区
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="categoryId" value="3" v-model="loanProduct.categoryId"/> 100%下款
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="categoryId" value="4" v-model="loanProduct.categoryId"/> 本周最佳
+					</label>
+	            </td>
+        	</tr>
+        	
+        	<tr>
+	            <td class="formTitle">产品标签</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="label" value="1" v-model="loanProduct.label"/> 热门产品
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="label" value="2" v-model="loanProduct.label"/> 额度高
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="label" value="3" v-model="loanProduct.label"/> 利率低
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="label" value="4" v-model="loanProduct.label"/> 周期长
+					</label>
+	            </td>
+        	</tr>
+        	
+<!-- 			<tr>
+	            <td class="formTitle formRequired">是否加入轮播图</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="是否加入轮播图" v-model="loanProduct.bannaerTag" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle formRequired">排位</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="排位" v-model="loanProduct.scort" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+<!-- 			<tr>
+	            <td class="formTitle formRequired">申请人数</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="申请人数/uv" v-model="loanProduct.applyNum" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+        	
+<!--         	<tr>
+	            <td class="formTitle">应用APP</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="check" name="appId" value="1" v-model="loanProduct.appId"/> 乐享用
+					</label>
+					<label class="radio-inline">
+						<input type="check" name="appId" value="2" v-model="loanProduct.appId"/> 现金贷
+					</label>
+	            </td>
+        	</tr> -->
+        	
+        	<tr>
+	            <td class="formTitle">产品状态</td>
+	            <td class="formValue">
+					<label class="radio-inline">
+						<input type="radio" name="status" value="0" v-model="loanProduct.status"/> 初始
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="status" value="1" v-model="loanProduct.status"/> 正常
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="status" value="2" v-model="loanProduct.status"/> 下架
+					</label>
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">备注信息</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="备注信息" v-model="loanProduct.remark" isvalid="yes">
+	            </td>
+        	</tr>
+		</table>
+	</div>
+    <div th:include="include/footer_js::footer"></div>
+    
+<!-- 	<script th:src="@{/statics/js/jquery.js}"></script>
+ -->	<script th:src="@{/statics/js/ajaxfileupload2.js}"></script>
+    <script th:src="@{/statics/js/loan/product/add.js}"></script>
+</body>
+</html>

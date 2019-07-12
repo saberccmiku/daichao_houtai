@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.basic.dao.BasicSmsLogDao">
+	
+	<select id="listForPage" resultType="BasicSmsLog" flushCache="true">
+		SELECT
+			`id`, 
+			`mobile`, 
+			`sms_code`, 
+			`type`, 
+			`source`, 
+			`content`, 
+			`ip`, 
+			`send_time`, 
+			`user_id`, 
+			`channel_code`, 
+			`channel_name`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			basic_sms_log
+		ORDER BY
+			id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO basic_sms_log (
+			`id`, 
+			`mobile`, 
+			`sms_code`, 
+			`type`, 
+			`source`, 
+			`content`, 
+			`ip`, 
+			`send_time`, 
+			`user_id`, 
+			`channel_code`, 
+			`channel_name`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{id}, 
+			#{mobile}, 
+			#{smsCode}, 
+			#{type}, 
+			#{source}, 
+			#{content}, 
+			#{ip}, 
+			#{sendTime}, 
+			#{userId}, 
+			#{channelCode}, 
+			#{channelName}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="BasicSmsLog">
+		SELECT
+			`id`, 
+			`mobile`, 
+			`sms_code`, 
+			`type`, 
+			`source`, 
+			`content`, 
+			`ip`, 
+			`send_time`, 
+			`user_id`, 
+			`channel_code`, 
+			`channel_name`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			basic_sms_log
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE basic_sms_log
+	 	<set>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="smsCode != null">`sms_code` = #{smsCode}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="source != null">`source` = #{source}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="ip != null">`ip` = #{ip}, </if>
+			<if test="sendTime != null">`send_time` = #{sendTime}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="channelCode != null">`channel_code` = #{channelCode}, </if>
+			<if test="channelName != null">`channel_name` = #{channelName}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<select id="countRegBlackList" parameterType="string" resultType="int">
+		SELECT COUNT(1) FROM basic_sms_log t WHERE t.ip=#{ip} AND t.type =1
+	</select>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

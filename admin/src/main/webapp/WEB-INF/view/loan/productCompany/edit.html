@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('编辑-产品公司信息')"></head>
+</head>
+<body>
+	<div id="dpLTE" class="container-fluid" v-cloak>
+		<table class="form" id="form">
+<!-- 			<tr>
+	            <td class="formTitle formRequired">产品公司编码</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品公司编码" v-model="loanProductCompany.companyCode" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr> -->
+			<tr>
+	            <td class="formTitle formRequired">公司名称</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="产品公司名称" v-model="loanProductCompany.companyName" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">类型</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="类型" v-model="loanProductCompany.type" isvalid="yes" checkexpession="NotNull">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">充值金额</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="充值金额" v-model="loanProductCompany.rechargeAmt" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">余额</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="余额" v-model="loanProductCompany.balance" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">单价</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="单价" v-model="loanProductCompany.price" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">联系人</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="联系人" v-model="loanProductCompany.contactName" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle formRequired">联系人手机号</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="联系人手机号" v-model="loanProductCompany.contactPhone" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">公司地址</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="公司地址" v-model="loanProductCompany.address" isvalid="yes">
+	            </td>
+        	</tr>
+			<tr>
+	            <td class="formTitle">备注信息</td>
+	            <td class="formValue">
+					<input type="text" class="form-control" placeholder="备注信息" v-model="loanProductCompany.remark" isvalid="yes">
+	            </td>
+        	</tr>
+			
+		</table>
+	</div>
+    <div th:include="include/footer_js::footer"></div>
+    <script th:src="@{/statics/js/loan/productCompany/edit.js}"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daichao.loans.statistics.dao.StatisticsProductDao">
+	
+	<select id="listForPage" resultType="StatisticsProduct" flushCache="true">
+		SELECT
+			`id`, 
+			`stat_date`, 
+			`product_id`, 
+			`product_code`, 
+			`product_name`, 
+			`company_id`, 
+			`tourist_pv`, 
+			`tourist_uv`, 
+			`user_pv`, 
+			`user_uv`, 
+			`reg_num`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			statistics_product
+		<where>
+			<if test="productName != null and productName.trim() != ''">
+				AND product_name = #{productName}
+			</if>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT(create_time, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		ORDER BY stat_date DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO statistics_product (
+			`stat_date`, 
+			`product_id`, 
+			`product_code`, 
+			`product_name`, 
+			`company_id`, 
+			`tourist_pv`, 
+			`tourist_uv`, 
+			`user_pv`, 
+			`user_uv`, 
+			`reg_num`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		)
+		VALUES (
+			#{statDate}, 
+			#{productId}, 
+			#{productCode}, 
+			#{productName}, 
+			#{companyId}, 
+			#{touristPv}, 
+			#{touristUv}, 
+			#{userPv}, 
+			#{userUv}, 
+			#{regNum}, 
+			#{status}, 
+			#{remark}, 
+			#{createBy}, 
+			#{createTime}, 
+			#{updateBy}, 
+			#{updateTime}, 
+			#{del}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="StatisticsProduct">
+		SELECT
+			`id`, 
+			`stat_date`, 
+			`product_id`, 
+			`product_code`, 
+			`product_name`, 
+			`company_id`, 
+			`tourist_pv`, 
+			`tourist_uv`, 
+			`user_pv`, 
+			`user_uv`, 
+			`reg_num`, 
+			`status`, 
+			`remark`, 
+			`create_by`, 
+			`create_time`, 
+			`update_by`, 
+			`update_time`, 
+			`del`
+		FROM
+			statistics_product
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE statistics_product
+	 	<set>
+			<if test="statDate != null">`stat_date` = #{statDate}, </if>
+			<if test="productId != null">`product_id` = #{productId}, </if>
+			<if test="productCode != null">`product_code` = #{productCode}, </if>
+			<if test="productName != null">`product_name` = #{productName}, </if>
+			<if test="companyId != null">`company_id` = #{companyId}, </if>
+			<if test="touristPv != null">`tourist_pv` = #{touristPv}, </if>
+			<if test="touristUv != null">`tourist_uv` = #{touristUv}, </if>
+			<if test="userPv != null">`user_pv` = #{userPv}, </if>
+			<if test="userUv != null">`user_uv` = #{userUv}, </if>
+			<if test="regNum != null">`reg_num` = #{regNum}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createBy != null">`create_by` = #{createBy}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateBy != null">`update_by` = #{updateBy}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="del != null">`del` = #{del}</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			statistics_product
+		WHERE
+			id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+</mapper>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/header_css::header('客户信息')"></head>
+</head>
+<body>
+<div id="dpLTE" class="container-fluid" v-cloak>
+	<div class="row">
+		<div class="col-md-9 form-inline pull-left">
+			<!-- <div class="form-group">
+		    	<input v-model="keyword" @keyup.enter="load" type="text" class="form-control" placeholder="请输入查询关键字" style="width: 220px;" />
+			</div> -->
+			
+			<div class="form-group">
+		    	<input v-model="mobile" @keyup.enter="load" type="text" class="form-control" placeholder="手机号" style="width: 170px;" />
+			</div>
+			
+			<div class="form-group">
+<!-- 		    	<input v-model="realName" @keyup.enter="load" type="text" class="form-control" placeholder="姓名" style="width: 180px;" /> -->		    	
+				<select class="form-control channelSelect" v-model="channel"  isvalid="yes" checkexpession="NotNull" style="width: 160px;" ></select>
+			</div>
+			
+			
+			<div class="input-group">
+				<input id="dateRange" :value="dateRange" class="form-control" placeholder="请选择时间范围" style="width: 190px;" readonly/>
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{dateRangeText}} <span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a @click="dateRangeSelect(1)" href="javascript:;">最近一天</a></li>
+						<li><a @click="dateRangeSelect(7)" href="javascript:;">最近一周</a></li>
+						<li><a @click="dateRangeSelect(30)" href="javascript:;">最近一月</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a @click="dateRangeSelect(0)" href="javascript:;">自定义</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="form-group">
+			    <a class="btn btn-primary" @click="load"><i class="fa fa-search"></i>&nbsp;查询</a>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="btn-toolbar pull-right">
+				<div class="btn-group">
+		            <a v-if="hasPermission('cust:users:list')" class="btn btn-default" onclick="reload();"><i class="fa fa-refresh"></i>&nbsp;刷新</a>
+		            <a v-if="hasPermission('cust:users:save')" class="btn btn-default" @click="save"><i class="fa fa-plus"></i>&nbsp;新增</a>
+		            <a v-if="hasPermission('cust:users:remove')" class="btn btn-default" @click="remove(true)"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+		        </div>
+	        </div>
+		</div>
+	</div>
+	<div class="row">
+		<table id="dataGrid"></table>
+	</div>
+</div>
+<div th:include="include/footer_js::footer"></div>
+<script th:src="@{/statics/js/cust/user/list.js}"></script>
+</body>
+</html>
